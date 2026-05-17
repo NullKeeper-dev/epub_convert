@@ -1,9 +1,14 @@
+import codecs
+import re
 import zipfile
 import opencc
 from pathlib import Path
 
 # only initailize OpenCC once, or it would be very slow
 converter = opencc.OpenCC(config="s2tw.json")
+XML_ENCODING_RE = re.compile(br'^\s*<\?xml[^>]*encoding=["\']([A-Za-z0-9._-]+)["\']', re.IGNORECASE)
+HTML_CHARSET_RE = re.compile(br'<meta[^>]+charset=["\']?\s*([A-Za-z0-9._-]+)', re.IGNORECASE)
+HTML_CONTENT_TYPE_RE = re.compile(br'<meta[^>]+content=["\'][^"\']*charset=([A-Za-z0-9._-]+)', re.IGNORECASE)
 
 def convert_epub(epub, output=None):
     target_filetype = ["htm", "html", "xhtml", "ncx", "opf"]
@@ -19,7 +24,7 @@ def convert_epub(epub, output=None):
             sc_content = origin.read(fn)
             tc_content = convert_content(sc_content)
             if extension == "opf":
-                tc_content = tc_content.replace("<dc:language>zh-CN</dc:language>", "<dc:language>zh-TW</dc:language>")
+                tc_content = tc_content.replace(b"<dc:language>zh-CN</dc:language>", b"<dc:language>zh-TW</dc:language>")
             copy.writestr(s2t(fn), tc_content, compress_type=info.compress_type)
         else:
             # write other files directly
@@ -30,12 +35,31 @@ def convert_epub(epub, output=None):
     return output
 
 def convert_content(content):
-    _tmp = []
+    if isinstance(content, str):
+        return s2t(content)
 
-    for line in content.splitlines():
-        _tmp.append(s2t(line))
+    encoding = detect_encoding(content)
+    text = content.decode(encoding)
+    return s2t(text).encode(encoding)
 
-    return "\n".join(_tmp)
+def detect_encoding(content):
+    for bom, encoding in (
+        (codecs.BOM_UTF8, "utf-8-sig"),
+        (codecs.BOM_UTF16_LE, "utf-16"),
+        (codecs.BOM_UTF16_BE, "utf-16"),
+        (codecs.BOM_UTF32_LE, "utf-32"),
+        (codecs.BOM_UTF32_BE, "utf-32"),
+    ):
+        if content.startswith(bom):
+            return encoding
+
+    head = content[:1024]
+    for pattern in (XML_ENCODING_RE, HTML_CHARSET_RE, HTML_CONTENT_TYPE_RE):
+        match = pattern.search(head)
+        if match:
+            return match.group(1).decode("ascii")
+
+    return "utf-8"
 
 def s2t(text):
     return converter.convert(text)
