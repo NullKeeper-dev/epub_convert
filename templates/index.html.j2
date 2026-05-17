@@ -35,7 +35,7 @@
                         <div class="ts-center">
                             <!-- Header & Description -->
                             <div class="ts-header is-large">上傳</div>
-                            <div class="ts-text is-center-aligned is-secondary">將檔案拖拉至此處進行上傳，或是點擊此處選取檔案。<br>Max upload size : 20.0 MiB</div>
+                            <div class="ts-text is-center-aligned is-secondary">將檔案拖拉至此處進行上傳，或是點擊此處選取檔案。<br>{{ limit_human_readable }}</div>
 
                             <div class="ts-space"></div>
 
@@ -65,7 +65,8 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
         <script>
-            const sizeLimit = {{ limit }};
+            const sizeLimit = {{ limit|tojson }};
+            const sizeLimitLabel = {{ limit_human_readable|tojson }};
         </script>
         <script src="{{ url_for('static', filename='upload.js') }}"></script>
     </body>

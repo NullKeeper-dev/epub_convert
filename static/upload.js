@@ -95,7 +95,7 @@ function updateFile(files, syncWithInput=true) {
     let size = files[0].size;
 
     // check file extension
-    if (filename.split(".").pop() != "epub") {
+    if (filename.split(".").pop().toLowerCase() != "epub") {
         ts(".ts-snackbar").snackbar({
             content: "只接受 EPUB 格式的檔案!"
         });
@@ -103,9 +103,9 @@ function updateFile(files, syncWithInput=true) {
     }
 
     // check file size
-    if (size >= sizeLimit) {
+    if (sizeLimit !== null && size > sizeLimit) {
         ts(".ts-snackbar").snackbar({
-            content: "檔案過大!"
+            content: `檔案過大！ ${sizeLimitLabel}`
         });
         return false;
     }
@@ -131,7 +131,7 @@ function reset(ev) {
         ev.stopPropagation();
     }
     dqs(".ts-header", dqs("#dragzone")).textContent = "上傳";
-    dqs(".ts-text", dqs("#dragzone")).innerHTML = "將檔案拖拉至此處進行上傳，或是點擊此處選取檔案。<br>Max upload size : " + humanFileSize(sizeLimit, false);
+    dqs(".ts-text", dqs("#dragzone")).innerHTML = "將檔案拖拉至此處進行上傳，或是點擊此處選取檔案。<br>" + sizeLimitLabel;
     dqs("#dragzone").dataset.mode = "selecting";
     dqs("#upload").value = "";
 }

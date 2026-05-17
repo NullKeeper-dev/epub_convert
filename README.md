@@ -73,8 +73,13 @@ Then open `http://127.0.0.1:5000`.
 Web app behavior:
 
 - Accepts a single `.epub` upload
-- Enforces a 20 MiB upload limit
+- Has no app-level upload limit by default
 - Returns the converted EPUB directly as a download
+
+Optional upload limit:
+
+- Set `MAX_UPLOAD_MIB` to a positive number to restore an app-level limit
+- Leave `MAX_UPLOAD_MIB` unset, `0`, or a negative value for no app-level limit
 
 ## API
 
@@ -106,6 +111,8 @@ The repository includes a `Procfile` with:
 ```bash
 gunicorn web:app --timeout 60
 ```
+
+If you are deploying behind Apache, Nginx, a CDN, or a hosting platform, those layers can still impose their own body-size or timeout limits even when the Flask app does not.
 
 ### Apache `mod_wsgi`
 
