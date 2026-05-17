@@ -1,4 +1,4 @@
-# epub_convert
+# EPUB Converter
 
 `epub_convert` converts Simplified Chinese EPUB files to Traditional Chinese EPUB files.
 
