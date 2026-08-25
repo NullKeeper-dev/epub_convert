@@ -1,17 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-Hant-TW">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta charset="utf-8">
-        <title>EPUB 簡轉繁</title>
+        <title>EPUB 簡轉繁｜線上將簡體中文電子書轉為繁體中文</title>
+        <meta name="description" content="免費線上 EPUB 簡轉繁工具，將簡體中文 EPUB 電子書轉換為臺灣繁體中文。免安裝、支援拖放，上傳後立即轉換並下載。">
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+        <link rel="canonical" href="{{ canonical_url }}">
+        <meta property="og:locale" content="zh_TW">
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="EPUB 簡轉繁">
+        <meta property="og:title" content="EPUB 簡轉繁｜簡體中文電子書轉繁體中文">
+        <meta property="og:description" content="免費、免安裝的線上 EPUB 簡轉繁工具。上傳簡體中文電子書，立即下載繁體中文版。">
+        <meta property="og:url" content="{{ canonical_url }}">
         <!-- Tocas UI：CSS 與元件 -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocas-ui/4.0.4/tocas.css">
         <!-- Tocas JS：模塊與 JavaScript 函式 -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tocas-ui/4.0.4/tocas.js"></script>
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
-        <meta name="description" content="將簡體 EPUB 轉換為繁體 EPUB 的線上工具。支援拖放上傳，且上傳後即刻開始轉換，數秒內即轉換完成。">
         <meta name="keywords" content="epub,EPUB,chinese,ebook,電子書,簡體,繁體,簡繁轉換,簡轉繁,簡體轉繁體,線上工具">
+        <script type="application/ld+json">{{ {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "EPUB 簡轉繁",
+            "url": canonical_url,
+            "applicationCategory": "UtilitiesApplication",
+            "operatingSystem": "任何支援網頁瀏覽器的系統",
+            "inLanguage": "zh-Hant-TW",
+            "description": "將簡體中文 EPUB 電子書轉換為臺灣繁體中文的免費線上工具",
+            "offers": {"@type": "Offer", "price": "0", "priceCurrency": "TWD"}
+        }|tojson }}</script>
     </head>
     <body>
         <form action="{{ endpoint }}" method="post" enctype="multipart/form-data" name="form" id="form">
@@ -40,8 +59,8 @@
                             <div class="ts-space"></div>
 
                             <!-- Buttons / Progress bar -->
-                            <button class="ts-button is-primary" id="submitbtn">Upload</button>
-                            <a class="ts-button is-positive" id="downloadbtn">Download</a>
+                            <button class="ts-button is-primary" id="submitbtn">開始轉換</button>
+                            <a class="ts-button is-positive" id="downloadbtn">下載繁體 EPUB</a>
                             <div class="ts-progress" id="progressbar">
                                 <div class="bar" style="--value: 0;"></div>
                             </div>
@@ -54,9 +73,20 @@
             </div>
             <div class="ts-space"></div>
         </div>
+        <section class="ts-container seo-content" aria-labelledby="about-title">
+            <h1 class="ts-header is-large" id="about-title">線上 EPUB 簡體轉繁體</h1>
+            <p>上傳簡體中文 EPUB 電子書，即可轉換為臺灣繁體中文。系統會轉換書籍內文、目錄、檔名與語言標記，完成後直接下載，不需安裝軟體。</p>
+            <h2 class="ts-header">如何將簡體 EPUB 轉成繁體？</h2>
+            <ol>
+                <li>拖放或選取一個 EPUB 檔案。</li>
+                <li>點選「開始轉換」，等待處理完成。</li>
+                <li>點選「下載繁體 EPUB」儲存電子書。</li>
+            </ol>
+            <p>單一檔案上限為 4 MiB。檔案只用於本次轉換，不會建立公開書庫。</p>
+        </section>
         <footer class="ts-content is-center-aligned is-tertiary">
             <p class="ts-text">將簡體 EPUB 轉換為繁體 EPUB 的線上工具。支援拖放上傳，且上傳後即刻開始轉換，數秒內即轉換完成。</p>
-            <p class="ts-text">&copy; Stone App | <a class="ts-text is-link" href="https://github.com/stoneapptech/epub_convert">GitHub Repo</a></p>
+            <p class="ts-text">&copy; EPUB 簡轉繁 | <a class="ts-text is-link" href="https://github.com/NullKeeper-dev/epub_convert" rel="noopener">GitHub 原始碼</a></p>
         </footer>
         <!-- snackbar -->
         <div class="ts-snackbar is-fading-up">

@@ -73,13 +73,13 @@ Then open `http://127.0.0.1:5000`.
 Web app behavior:
 
 - Accepts a single `.epub` upload
-- Has no app-level upload limit by default
+- Limits uploads to 4 MiB by default, safely below Vercel's 4.5 MB request and response limit
 - Returns the converted EPUB directly as a download
 
 Optional upload limit:
 
-- Set `MAX_UPLOAD_MIB` to a positive number to restore an app-level limit
-- Leave `MAX_UPLOAD_MIB` unset, `0`, or a negative value for no app-level limit
+- Set `MAX_UPLOAD_MIB` to a positive number to change the app-level limit
+- Set `MAX_UPLOAD_MIB` to `0` or a negative value for no app-level limit outside Vercel
 
 ## API
 

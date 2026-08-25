@@ -197,3 +197,14 @@ body, .ts-box, footer.ts-content, .ts-close {
         opacity: 0;
     }
 }
+
+.seo-content {
+    max-width: 720px;
+    padding: 0 1rem 2rem;
+    line-height: 1.8;
+}
+
+.seo-content h1,
+.seo-content h2 {
+    margin-top: 1.5rem;
+}

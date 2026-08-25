@@ -1,3 +1,4 @@
 __pycache__/
 # test epub files
 *.epub
+.vercel

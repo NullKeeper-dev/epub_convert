@@ -5,7 +5,7 @@ import opencc
 from pathlib import Path
 
 # only initailize OpenCC once, or it would be very slow
-converter = opencc.OpenCC(config="s2tw.json")
+converter = opencc.OpenCC("s2tw")
 XML_ENCODING_RE = re.compile(br'^\s*<\?xml[^>]*encoding=["\']([A-Za-z0-9._-]+)["\']', re.IGNORECASE)
 HTML_CHARSET_RE = re.compile(br'<meta[^>]+charset=["\']?\s*([A-Za-z0-9._-]+)', re.IGNORECASE)
 HTML_CONTENT_TYPE_RE = re.compile(br'<meta[^>]+content=["\'][^"\']*charset=([A-Za-z0-9._-]+)', re.IGNORECASE)
