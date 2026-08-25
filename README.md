@@ -43,6 +43,14 @@ Convert one file:
 python convert.py book.epub
 ```
 
+Experimental full-font normalization removes embedded font rules so converted and unchanged characters use the reader's default font:
+
+```bash
+python convert.py book.epub --convert-all
+```
+
+This keeps other CSS formatting such as colors and font weights. The original EPUB is not modified.
+
 Convert multiple files:
 
 ```bash
